@@ -5,282 +5,288 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Банкротство физических лиц — Султанов и Банкроты</title>
 <style>
-  :root {
-    --bg: #f7f4ee;
-    --bg-2: #efe9db;
-    --panel: #ffffff;
-    --panel-2: #f2ede2;
-    --brass: #a97c33;
-    --brass-dim: #c79a4b;
-    --brass-soft: rgba(169,124,51,0.10);
-    --burgundy: #9c3b3b;
-    --burgundy-dim: #7a2e2e;
-    --ink: #2a251f;
-    --ink-dim: #6b6255;
-    --ink-faint: #9b9080;
-    --border: #e2d9c5;
-    --radius: 4px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    line-height: 1.6;
-  }
-  .mono { font-family: "SF Mono", "IBM Plex Mono", Menlo, monospace; }
+:root {
+  --bg: #f7f4ee;
+  --bg-2: #efe9db;
+  --panel: #ffffff;
+  --panel-2: #f2ede2;
+  --brass: #a97c33;
+  --brass-dim: #c79a4b;
+  --brass-soft: rgba(169,124,51,0.10);
+  --burgundy: #9c3b3b;
+  --burgundy-dim: #7a2e2e;
+  --ink: #2a251f;
+  --ink-dim: #6b6255;
+  --ink-faint: #9b9080;
+  --border: #e2d9c5;
+  --radius: 4px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+}
+.mono { font-family: "SF Mono", "IBM Plex Mono", Menlo, monospace; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(247,244,238,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 900px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-brand { font-family: Georgia, serif; font-size: 15px; color: var(--ink); }
+.nav-brand span { color: var(--brass); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  font-size: 13px; color: var(--ink-dim); text-decoration: none;
+  padding: 8px 12px; border-radius: var(--radius);
+}
+.nav-links a:hover { color: var(--ink); background: var(--panel-2); }
+.nav-cta {
+  font-size: 13px; color: #fff !important; background: var(--burgundy);
+  padding: 8px 16px !important; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.nav-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+.nav-cta:hover { background: var(--burgundy-dim) !important; opacity: 1; }
+@media (max-width: 680px) { .nav-links a:not(.nav-cta) { display: none; } }
+.hero { padding: 64px 0 56px; }
+.hero-grid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 40px; align-items: center; }
+.hero-photo {
+  border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -20px rgba(42,37,31,0.25);
+}
+.hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 760px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-photo { max-width: 280px; margin: 0 auto; order: -1; }
+}
+.case-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
+  border: 1px solid var(--brass-dim); padding: 5px 12px; border-radius: 20px;
+  margin-bottom: 28px; background: var(--brass-soft);
+}
+.case-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+.hero h1 {
+  font-family: Georgia, "PT Serif", serif; font-size: 36px; line-height: 1.22;
+  font-weight: 400; margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--brass); }
+.hero p.lead { font-size: 17px; color: var(--ink-dim); max-width: 480px; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px;
+  border-radius: var(--radius); font-size: 14px; font-weight: 600;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+}
+.btn-primary { background: var(--burgundy); color: #fff; }
+.btn-primary:hover { background: var(--burgundy-dim); }
+.btn-ghost { border-color: var(--border); color: var(--ink); background: var(--panel); }
+.btn-ghost:hover { border-color: var(--brass-dim); }
+.stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border); padding-top: 24px; gap: 24px;
+}
+.stat-num { font-family: Georgia, serif; font-size: 26px; color: var(--brass); }
+.stat-label { font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 27px; }
+  .stat-row { grid-template-columns: 1fr; gap: 16px; }
+}
+section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+.eyebrow {
+  font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
+}
+h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bottom: 8px; }
+.section-sub { color: var(--ink-dim); font-size: 15px; max-width: 540px; margin-bottom: 36px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+.about-photo {
+  border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  position: sticky; top: 80px;
+  box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
+}
+.about-photo img { display: block; width: 100%; height: auto; }
+@media (max-width: 760px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo { position: static; max-width: 340px; margin: 0 auto 28px; }
+}
+.bio-block { margin-bottom: 22px; }
+.bio-block h3 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--brass); margin-bottom: 8px; font-weight: 600;
+}
+.bio-block p { color: var(--ink-dim); font-size: 15px; margin-bottom: 8px; }
+.bio-quote {
+  border-left: 2px solid var(--brass-dim); padding: 4px 0 4px 16px;
+  font-family: Georgia, serif; font-style: italic; color: var(--ink);
+  margin: 14px 0; font-size: 15px;
+}
+.service-list { border-top: 1px solid var(--border); }
+.service-row {
+  display: grid; grid-template-columns: 60px 1fr; gap: 20px;
+  padding: 22px 0; border-bottom: 1px solid var(--border);
+}
+.service-num { font-family: "SF Mono", monospace; font-size: 13px; color: var(--ink-faint); padding-top: 2px; }
+.service-row h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.service-row p { color: var(--ink-dim); font-size: 14px; max-width: 500px; }
+.service-row .callout {
+  display: inline-block; margin-top: 8px; font-size: 13px; color: var(--brass);
+  background: var(--brass-soft); padding: 6px 12px; border-radius: var(--radius);
+}
+.advantages-photo {
+  margin-top: 32px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
+}
+.advantages-photo img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
+.case-note {
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 18px; font-size: 13px; color: var(--brass); margin-bottom: 28px;
+}
+.case-card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 26px; box-shadow: 0 10px 26px -20px rgba(42,37,31,0.2);
+}
+.case-card h3 { font-size: 16px; margin-bottom: 10px; font-weight: 600; }
+.case-card p { color: var(--ink-dim); font-size: 15px; margin-bottom: 10px; }
+.case-card .highlight {
+  background: var(--brass-soft); border-left: 2px solid var(--brass);
+  padding: 10px 14px; color: var(--ink); font-size: 14px; margin: 12px 0;
+}
+.case-card .result { color: var(--brass); font-weight: 600; font-size: 15px; margin-top: 14px; }
+.rating-bar {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+  padding: 16px 20px; background: var(--panel-2); border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.rating-num { font-family: Georgia, serif; font-size: 28px; color: var(--brass); }
+.rating-sub { font-size: 13px; color: var(--ink-dim); }
+.carousel { position: relative; }
+.carousel-track {
+  display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: 6px; scrollbar-width: none; -ms-overflow-style: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-nav {
+  display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 14px;
+}
+.carousel-nav button {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--panel); border: 1px solid var(--border); color: var(--ink);
+  font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+.carousel-nav button:hover { border-color: var(--brass-dim); color: var(--brass); }
+.carousel-nav button:disabled { opacity: 0.35; cursor: default; }
+.carousel-nav button:disabled:hover { border-color: var(--border); color: var(--ink); }
 
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.review-grid.carousel-track { align-items: stretch; }
+.review-card {
+  background: var(--panel); border-left: 2px solid var(--brass-dim);
+  padding: 18px 22px; border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: 0 8px 20px -18px rgba(42,37,31,0.25);
+  flex: 0 0 300px; scroll-snap-align: start;
+}
+.review-head { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: baseline; }
+.review-name { font-weight: 600; font-size: 14px; color: var(--ink); }
+.review-stars { font-size: 12px; color: var(--brass); }
+.review-text { font-family: Georgia, serif; font-size: 15px; color: var(--ink-dim); }
 
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(247,244,238,0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: 900px; margin: 0 auto; padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-  }
-  .nav-brand { font-family: Georgia, serif; font-size: 15px; color: var(--ink); }
-  .nav-brand span { color: var(--brass); }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-links a {
-    font-size: 13px; color: var(--ink-dim); text-decoration: none;
-    padding: 8px 12px; border-radius: var(--radius);
-  }
-  .nav-links a:hover { color: var(--ink); background: var(--panel-2); }
-  .nav-cta {
-    font-size: 13px; color: #fff !important; background: var(--burgundy);
-    padding: 8px 16px !important; font-weight: 600;
-  }
-  .nav-cta:hover { background: var(--burgundy-dim) !important; opacity: 1; }
-  @media (max-width: 680px) { .nav-links a:not(.nav-cta) { display: none; } }
-
-  .hero { padding: 64px 0 56px; }
-  .hero-grid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 40px; align-items: center; }
-  .hero-photo {
-    border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
-    box-shadow: 0 18px 40px -20px rgba(42,37,31,0.25);
-  }
-  .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 760px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-photo { max-width: 280px; margin: 0 auto; order: -1; }
-  }
-
-  .case-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
-    border: 1px solid var(--brass-dim); padding: 5px 12px; border-radius: 20px;
-    margin-bottom: 28px; background: var(--brass-soft);
-  }
-  .case-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
-  .hero h1 {
-    font-family: Georgia, "PT Serif", serif; font-size: 36px; line-height: 1.22;
-    font-weight: 400; margin-bottom: 20px;
-  }
-  .hero h1 em { font-style: normal; color: var(--brass); }
-  .hero p.lead { font-size: 17px; color: var(--ink-dim); max-width: 480px; margin-bottom: 32px; }
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px;
-    border-radius: var(--radius); font-size: 14px; font-weight: 600;
-    text-decoration: none; cursor: pointer; border: 1px solid transparent;
-  }
-  .btn-primary { background: var(--burgundy); color: #fff; }
-  .btn-primary:hover { background: var(--burgundy-dim); }
-  .btn-ghost { border-color: var(--border); color: var(--ink); background: var(--panel); }
-  .btn-ghost:hover { border-color: var(--brass-dim); }
-
-  .stat-row {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--border); padding-top: 24px; gap: 24px;
-  }
-  .stat-num { font-family: Georgia, serif; font-size: 26px; color: var(--brass); }
-  .stat-label { font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 27px; }
-    .stat-row { grid-template-columns: 1fr; gap: 16px; }
-  }
-
-  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-  .eyebrow {
-    font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
-  }
-  h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bottom: 8px; }
-  .section-sub { color: var(--ink-dim); font-size: 15px; max-width: 540px; margin-bottom: 36px; }
-
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
-  .about-photo {
-    border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
-    position: sticky; top: 80px;
-    box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
-  }
-  .about-photo img { display: block; width: 100%; height: auto; }
-  @media (max-width: 760px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .about-photo { position: static; max-width: 340px; margin: 0 auto 28px; }
-  }
-
-  .bio-block { margin-bottom: 22px; }
-  .bio-block h3 {
-    font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
-    color: var(--brass); margin-bottom: 8px; font-weight: 600;
-  }
-  .bio-block p { color: var(--ink-dim); font-size: 15px; margin-bottom: 8px; }
-  .bio-quote {
-    border-left: 2px solid var(--brass-dim); padding: 4px 0 4px 16px;
-    font-family: Georgia, serif; font-style: italic; color: var(--ink);
-    margin: 14px 0; font-size: 15px;
-  }
-
-  .service-list { border-top: 1px solid var(--border); }
-  .service-row {
-    display: grid; grid-template-columns: 60px 1fr; gap: 20px;
-    padding: 22px 0; border-bottom: 1px solid var(--border);
-  }
-  .service-num { font-family: "SF Mono", monospace; font-size: 13px; color: var(--ink-faint); padding-top: 2px; }
-  .service-row h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-  .service-row p { color: var(--ink-dim); font-size: 14px; max-width: 500px; }
-  .service-row .callout {
-    display: inline-block; margin-top: 8px; font-size: 13px; color: var(--brass);
-    background: var(--brass-soft); padding: 6px 12px; border-radius: var(--radius);
-  }
-  .advantages-photo {
-    margin-top: 32px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
-    box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
-  }
-  .advantages-photo img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
-
-  .case-note {
-    background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 14px 18px; font-size: 13px; color: var(--brass); margin-bottom: 28px;
-  }
-  .case-card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 26px; box-shadow: 0 10px 26px -20px rgba(42,37,31,0.2);
-  }
-  .case-card h3 { font-size: 16px; margin-bottom: 10px; font-weight: 600; }
-  .case-card p { color: var(--ink-dim); font-size: 15px; margin-bottom: 10px; }
-  .case-card .highlight {
-    background: var(--brass-soft); border-left: 2px solid var(--brass);
-    padding: 10px 14px; color: var(--ink); font-size: 14px; margin: 12px 0;
-  }
-  .case-card .result { color: var(--brass); font-weight: 600; font-size: 15px; margin-top: 14px; }
-
-  .rating-bar {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
-    padding: 16px 20px; background: var(--panel-2); border-radius: var(--radius);
-    border: 1px solid var(--border);
-  }
-  .rating-num { font-family: Georgia, serif; font-size: 28px; color: var(--brass); }
-  .rating-sub { font-size: 13px; color: var(--ink-dim); }
-
-  .review-grid { display: grid; gap: 16px; }
-  .review-card {
-    background: var(--panel); border-left: 2px solid var(--brass-dim);
-    padding: 18px 22px; border-radius: 0 var(--radius) var(--radius) 0;
-    box-shadow: 0 8px 20px -18px rgba(42,37,31,0.25);
-  }
-  .review-head { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: baseline; }
-  .review-name { font-weight: 600; font-size: 14px; color: var(--ink); }
-  .review-stars { font-size: 12px; color: var(--brass); }
-  .review-text { font-family: Georgia, serif; font-size: 15px; color: var(--ink-dim); }
-
-  .proof-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px;
-  }
-  .proof-grid figure { margin: 0; }
-  .proof-grid .ph {
-    border-radius: 6px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 3/4;
-    box-shadow: 0 10px 24px -18px rgba(42,37,31,0.25);
-  }
-  .proof-grid img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .proof-grid figcaption { font-size: 12px; color: var(--ink-faint); margin-top: 6px; text-align: center; }
-  @media (max-width: 680px) { .proof-grid { grid-template-columns: repeat(2, 1fr); } }
-
-  #contact { border-bottom: none; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .contact-info p { color: var(--ink-dim); font-size: 15px; margin-bottom: 20px; }
-  .contact-links { display: flex; flex-direction: column; gap: 10px; }
-  .contact-links a { color: var(--ink); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-  .contact-links a:hover { color: var(--brass); }
-  .contact-links .lbl { color: var(--ink-faint); width: 90px; flex-shrink: 0; font-size: 12px; }
-
-  form label { display: block; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; margin-top: 16px; }
-  form label:first-child { margin-top: 0; }
-  input, textarea {
-    width: 100%; background: var(--panel); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 12px; color: var(--ink); font-size: 14px; font-family: inherit;
-  }
-  textarea { min-height: 80px; resize: vertical; }
-  input:focus, textarea:focus { outline: none; border-color: var(--brass-dim); }
-  #contactForm button {
-    width: 100%; margin-top: 20px; padding: 14px; background: var(--burgundy);
-    color: #fff; border: none; border-radius: var(--radius); font-size: 14px;
-    font-weight: 600; cursor: pointer;
-  }
-  #contactForm button:disabled { opacity: 0.6; cursor: not-allowed; }
-  #contactForm button:hover:not(:disabled) { background: var(--burgundy-dim); }
-  #formStatus { margin-top: 12px; font-size: 13px; text-align: center; }
-  #formStatus.ok { color: #3f7d51; }
-  #formStatus.err { color: #b0473a; }
-  @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
-
-  footer { padding: 32px 0 40px; text-align: center; font-size: 12px; color: var(--ink-faint); }
-  footer a { color: var(--brass); text-decoration: none; }
-  .disclaimer {
-    max-width: 640px; margin: 18px auto 0; font-size: 11px; line-height: 1.5;
-    color: var(--ink-faint); padding: 0 24px;
-  }
-  .consent-check {
-    display: flex; align-items: flex-start; gap: 10px;
-    margin-top: 18px; font-size: 13px; color: var(--ink-dim);
-    cursor: pointer;
-  }
-  .consent-check input[type="checkbox"] {
-    width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0;
-    accent-color: var(--burgundy); cursor: pointer;
-  }
-  .consent-check span { line-height: 1.4; }
-  .consent-check a {
-    color: var(--brass); text-decoration: underline;
-  }
-  .consent-check a:hover { color: var(--burgundy); }
-    .floating-cta {
-    position: fixed; right: 24px; bottom: 24px; z-index: 60;
-    background: var(--burgundy); color: #fff; text-decoration: none;
-    padding: 14px 22px; border-radius: 30px; font-size: 14px; font-weight: 600;
-    box-shadow: 0 10px 24px -8px rgba(156,59,59,0.5);
-    transition: background 0.2s, transform 0.25s, opacity 0.25s, visibility 0.25s;
-  }
-  .floating-cta:hover { background: var(--burgundy-dim); transform: translateY(-2px); }
-  .floating-cta.hidden {
-    opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.95);
-    pointer-events: none;
-  }
-
-  .scroll-top {
-    position: fixed; right: 24px; bottom: 90px; z-index: 60;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--panel); color: var(--ink);
-    border: 1px solid var(--border); font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 20px -10px rgba(42,37,31,0.3);
-    opacity: 0; visibility: hidden; transform: translateY(10px);
-    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
-  }
-  .scroll-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-  .scroll-top:hover { border-color: var(--brass-dim); color: var(--brass); }
-
-  @media (max-width: 600px) {
-    .floating-cta { right: 16px; bottom: 16px; padding: 12px 18px; font-size: 13px; }
-    .scroll-top { right: 16px; bottom: 78px; width: 40px; height: 40px; }
-  }
+.proof-grid.carousel-track { margin-top: 32px; }
+.proof-grid figure { margin: 0; flex: 0 0 200px; scroll-snap-align: start; }
+.proof-grid .ph {
+  border-radius: 6px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 3/4;
+  box-shadow: 0 10px 24px -18px rgba(42,37,31,0.25);
+}
+.proof-grid img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.proof-grid figcaption { font-size: 12px; color: var(--ink-faint); margin-top: 6px; text-align: center; }
+@media (max-width: 600px) {
+  .review-card { flex-basis: 82vw; }
+  .proof-grid figure { flex-basis: 62vw; }
+}
+#contact { border-bottom: none; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.contact-info p { color: var(--ink-dim); font-size: 15px; margin-bottom: 20px; }
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-links a { color: var(--ink); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.contact-links a:hover { color: var(--brass); }
+.contact-links .lbl { color: var(--ink-faint); width: 90px; flex-shrink: 0; font-size: 12px; }
+form label { display: block; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; margin-top: 16px; }
+form label:first-child { margin-top: 0; }
+input, textarea {
+  width: 100%; background: var(--panel); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px; color: var(--ink); font-size: 14px; font-family: inherit;
+}
+textarea { min-height: 80px; resize: vertical; }
+input:focus, textarea:focus { outline: none; border-color: var(--brass-dim); }
+#contactForm button {
+  width: 100%; margin-top: 20px; padding: 14px; background: var(--burgundy);
+  color: #fff; border: none; border-radius: var(--radius); font-size: 14px;
+  font-weight: 600; cursor: pointer;
+}
+#contactForm button:disabled { opacity: 0.6; cursor: not-allowed; }
+#contactForm button:hover:not(:disabled) { background: var(--burgundy-dim); }
+#formStatus { margin-top: 12px; font-size: 13px; text-align: center; }
+#formStatus.ok { color: #3f7d51; }
+#formStatus.err { color: #b0473a; }
+@media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
+footer { padding: 32px 0 40px; text-align: center; font-size: 12px; color: var(--ink-faint); }
+footer a { color: var(--brass); text-decoration: none; }
+.disclaimer {
+  max-width: 640px; margin: 18px auto 0; font-size: 11px; line-height: 1.5;
+  color: var(--ink-faint); padding: 0 24px;
+}
+.consent-check {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 18px; font-size: 13px; color: var(--ink-dim);
+  cursor: pointer;
+}
+.consent-check input[type="checkbox"] {
+  width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0;
+  accent-color: var(--burgundy); cursor: pointer;
+}
+.consent-check span { line-height: 1.4; }
+.consent-check a {
+  color: var(--brass); text-decoration: underline;
+}
+.consent-check a:hover { color: var(--burgundy); }
+.floating-cta {
+  position: fixed; right: 24px; bottom: 24px; z-index: 60;
+  background: var(--burgundy); color: #fff; text-decoration: none;
+  padding: 14px 22px; border-radius: 30px; font-size: 14px; font-weight: 600;
+  box-shadow: 0 10px 24px -8px rgba(156,59,59,0.5);
+  transition: background 0.2s, transform 0.25s, opacity 0.25s, visibility 0.25s;
+}
+.floating-cta:hover { background: var(--burgundy-dim); transform: translateY(-2px); }
+.floating-cta.hidden {
+  opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.95);
+  pointer-events: none;
+}
+.scroll-top {
+  position: fixed; right: 24px; bottom: 90px; z-index: 60;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--panel); color: var(--ink);
+  border: 1px solid var(--border); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px -10px rgba(42,37,31,0.3);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+.scroll-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.scroll-top:hover { border-color: var(--brass-dim); color: var(--brass); }
+@media (max-width: 600px) {
+  .floating-cta { right: 16px; bottom: 16px; padding: 12px 18px; font-size: 13px; }
+  .scroll-top { right: 16px; bottom: 78px; width: 40px; height: 40px; }
+}
 </style>
 </head>
 <body>
@@ -293,7 +299,7 @@
       <a href="#advantages">Преимущества</a>
       <a href="#case">Кейс</a>
       <a href="#reviews">Отзывы</a>
-      <a href="#contact" class="nav-cta">Заявка</a>
+      <a href="tel:+79050036625" class="nav-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+7 905 003-66-25</a>
     </div>
   </div>
 </nav>
@@ -324,7 +330,6 @@
 
   <section id="about">
     <h2>Обо мне</h2>
-
     <div class="about-grid">
       <div>
         <div class="bio-block">
@@ -332,28 +337,23 @@
           <p>2014 год. Мой путь в профессии начался с суда — это была практика без теории: реальные дела, реальные люди и самые разные категории споров.</p>
           <div class="bio-quote">Хороший юрист — не тот, кто просто знает законы, а тот, кто умеет применять их для решения конкретной проблемы.</div>
         </div>
-
         <div class="bio-block">
           <h3>От юриста — к руководителю</h3>
           <p>После работы в суде перешёл в частные компании: сначала юристом, затем стал руководителем юридических отделов. Неоднократно приходилось выстраивать работу отдела практически с нуля — формировать и обучать команду, создавать стандарты работы, разбирать сложные и нестандартные дела.</p>
         </div>
-
         <div class="bio-block">
           <h3>Арбитражное управление</h3>
           <p>Следующим важным этапом стала работа с арбитражными управляющими — пригодился опыт работы с информацией и процессами. Банкротство — это документы, сроки, участники, суды и параллельные задачи. Этот опыт стал важной частью моей собственной практики.</p>
         </div>
-
         <div class="bio-block">
           <h3>Собственная практика</h3>
           <p>Уже больше 5 лет работаю самостоятельно. Основное направление — банкротство физических лиц. В юриспруденции не существует универсальных решений: каждую ситуацию сначала изучаю, и только потом выбираю стратегию.</p>
         </div>
-
         <div class="bio-block">
           <h3>Мой подход</h3>
           <p>Не обещаю клиенту того, чего нельзя осуществить. Сначала изучаю документы, оцениваю риски и перспективы — и только потом говорю, что действительно можно сделать. А если законного решения нет — честно скажу об этом.</p>
         </div>
       </div>
-
       <div class="about-photo">
         <img src="assets/office-2.jpg" alt="Сергей Султанов за работой в кабинете">
       </div>
@@ -361,12 +361,9 @@
   </section>
 
   <section id="advantages">
-    
     <h2>Почему Я</h2>
     <p class="section-sub">Со мной вы получаете работу под ключ до полного заверешния процедуры, фиксированную стоимость и поддержку каждый день.</p>
-
     <div class="service-list">
-     
       <div class="service-row">
         <div class="service-num mono">01</div>
         <div>
@@ -395,7 +392,7 @@
           <p>За каждого клиента, который пришёл по вашей рекомендации — вознаграждение 10 000 ₽.</p>
         </div>
       </div>
-       <div class="service-row">
+      <div class="service-row">
         <div class="service-num mono">05</div>
         <div>
           <h3>Не затягивайте с решением</h3>
@@ -411,14 +408,12 @@
         </div>
       </div>
     </div>
-
     <div class="advantages-photo">
       <img src="assets/meeting-1.jpg" alt="Консультация с клиентом">
     </div>
   </section>
 
   <section id="case">
-  
     <h2>Кейс из практики</h2>
     <p class="section-sub">Большинство моих клиентов — женщины. Меня всегда удивляло, как часто именно женщина берёт на себя финансовую ответственность за всю семью — иногда даже за мужа.</p>
 
@@ -433,23 +428,29 @@
       <p class="result">Результат: все прошло успешно. Ушла огромная финансовая нагрузка — появились деньги на то, что действительно важно: жизнь, лекарства и заботу о семье.</p>
     </div>
 
-    <div class="proof-grid">
-      <figure>
-        <div class="ph"><img src="assets/client-1.jpg" alt="С клиентом после успешного завершения процедуры"></div>
-        <figcaption>Довольный клиент</figcaption>
-      </figure>
-      <figure>
-        <div class="ph"><img src="assets/client-2.jpg" alt="С клиентом после успешного завершения процедуры"></div>
-        <figcaption>Довольный клиент</figcaption>
-      </figure>
-      <figure>
-        <div class="ph"><img src="assets/client-3.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
-        <figcaption>Довольный клиент</figcaption>
-      </figure>
-      <figure>
-        <div class="ph"><img src="assets/client-4.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
-        <figcaption>Довольный клиент</figcaption>
-      </figure>
+    <div class="carousel" id="proofCarousel">
+      <div class="carousel-nav">
+        <button type="button" class="prev" aria-label="Предыдущие фото">‹</button>
+        <button type="button" class="next" aria-label="Следующие фото">›</button>
+      </div>
+      <div class="proof-grid carousel-track">
+        <figure>
+          <div class="ph"><img src="assets/client-1.jpg" alt="С клиентом после успешного завершения процедуры"></div>
+          <figcaption>Довольный клиент</figcaption>
+        </figure>
+        <figure>
+          <div class="ph"><img src="assets/client-2.jpg" alt="С клиентом после успешного завершения процедуры"></div>
+          <figcaption>Довольный клиент</figcaption>
+        </figure>
+        <figure>
+          <div class="ph"><img src="assets/client-3.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
+          <figcaption>Довольный клиент</figcaption>
+        </figure>
+        <figure>
+          <div class="ph"><img src="assets/client-4.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
+          <figcaption>Довольный клиент</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -462,48 +463,53 @@
       <div class="rating-sub">137 отзывов на 2ГИС</div>
     </div>
 
-    <div class="review-grid">
-       <div class="review-card">
-        <div class="review-head"><span class="review-name">Любовь</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Всем добрый день! Выражаю свою сердечную и искреннюю благодарность Сергею Юрьевичу за высокий профессионализм в работе по проведению процедуры банкротства. Спасибо огромное за вашу отличную работу и человечность, за чуткость, понимание и внимательность, за уважительное отношение и деликатность в общении, за моральную поддержку! Оказавшись в тупиковой ситуации, финансовой неспособности оплаты кредитов, вы протянули руку помощи и подарили возможность жить . Жизнь с чистого листа! Ещё раз огромное спасибо! Желаю процветания вашей организации.</p>
+    <div class="carousel" id="reviewsCarousel">
+      <div class="carousel-nav">
+        <button type="button" class="prev" aria-label="Предыдущие отзывы">‹</button>
+        <button type="button" class="next" aria-label="Следующие отзывы">›</button>
       </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Константин</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Решение далось нелегко — был страх, что не спишут или заставят платить. Но мне всё объяснили: Сергей разобрал все долги, кто когда платил. Сказал, что в моём случае всё получится — так и вышло. Спасибо большое.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Григорий</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Доволен всем! Приятной неожиданностью стало то, что процедура прошла быстрее, чем планировалось — банки решили не подключаться. В итоге все завершилось всего за 5 месяцев. Спасибо.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Егор</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Был на нескольких консультациях — везде предлагали свои услуги в кредит или мутные схемы. У Сергея всё прозрачно: разрешил платить частями без кредитов и честно рассказал, чем грозили бы другие схемы.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Борис</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Смело рекомендую Сергея — профи на 100%. Работали хотя я из другого региона: всё дистанционно, без моего реального участия. Супер.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Анна</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text"> Я освобдился — это моё лучшее решение за последние годы. Было страшно, не сразу решилась, но всё прошло успешно. Теперь буду обходить кредиты стороной. Спасибо большое.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Илья</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Крутой юрист. Помог пройти процедуру и договориться с банком о спасении ипотеки. Рекомендую всем, кто в сложной финансовой ситуации: идите именно к Сергею, он всегда поможет.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Дмитрий</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Мама закредитовалась втайне, деньгами помочь не смогли. Долго искали юриста — боялись нарваться на горе-специалистов. Повезло найти Сергея: сразу доверились, он всё прозрачно объяснил. Теперь мама свободна — большое спасибо.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-head"><span class="review-name">Денис</span><span class="review-stars">★★★★★</span></div>
-        <p class="review-text">Как и обещал, все суды прошли за 6 месяцев. Никуда ходить не пришлось — было страшно, но Сергей сразу сказал, что всё делает сам. Банки уже убрали долги из приложений. Спасибо большое.</p>
+      <div class="review-grid carousel-track">
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Любовь</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Всем добрый день! Выражаю свою сердечную и искреннюю благодарность Сергею Юрьевичу за высокий профессионализм в работе по проведению процедуры банкротства. Спасибо огромное за вашу отличную работу и человечность, за чуткость, понимание и внимательность, за уважительное отношение и деликатность в общении, за моральную поддержку! Оказавшись в тупиковой ситуации, финансовой неспособности оплаты кредитов, вы протянули руку помощи и подарили возможность жить . Жизнь с чистого листа! Ещё раз огромное спасибо! Желаю процветания вашей организации.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Константин</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Решение далось нелегко — был страх, что не спишут или заставят платить. Но мне всё объяснили: Сергей разобрал все долги, кто когда платил. Сказал, что в моём случае всё получится — так и вышло. Спасибо большое.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Григорий</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Доволен всем! Приятной неожиданностью стало то, что процедура прошла быстрее, чем планировалось — банки решили не подключаться. В итоге все завершилось всего за 5 месяцев. Спасибо.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Егор</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Был на нескольких консультациях — везде предлагали свои услуги в кредит или мутные схемы. У Сергея всё прозрачно: разрешил платить частями без кредитов и честно рассказал, чем грозили бы другие схемы.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Борис</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Смело рекомендую Сергея — профи на 100%. Работали хотя я из другого региона: всё дистанционно, без моего реального участия. Супер.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Анна</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text"> Я освобдился — это моё лучшее решение за последние годы. Было страшно, не сразу решилась, но всё прошло успешно. Теперь буду обходить кредиты стороной. Спасибо большое.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Илья</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Крутой юрист. Помог пройти процедуру и договориться с банком о спасении ипотеки. Рекомендую всем, кто в сложной финансовой ситуации: идите именно к Сергею, он всегда поможет.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Дмитрий</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Мама закредитовалась втайне, деньгами помочь не смогли. Долго искали юриста — боялись нарваться на горе-специалистов. Повезло найти Сергея: сразу доверились, он всё прозрачно объяснил. Теперь мама свободна — большое спасибо.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-head"><span class="review-name">Денис</span><span class="review-stars">★★★★★</span></div>
+          <p class="review-text">Как и обещал, все суды прошли за 6 месяцев. Никуда ходить не пришлось — было страшно, но Сергей сразу сказал, что всё делает сам. Банки уже убрали долги из приложений. Спасибо большое.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="contact">
-  
     <h2>Оставить заявку</h2>
     <p class="section-sub">Опишите вашу ситуацию — оценю перспективы бесплатно.</p>
 
@@ -515,7 +521,6 @@
           <a href="https://instagram.com/sultanov_bankrotstvo" target="_blank"><span class="lbl">Inst</span> @sultanov_bankrotstvo</a>
           <a href="https://t.me/sultanov_sy" target="_blank"><span class="lbl">Telegramm</span> @sultanov_sy</a>
           <a href="https://max.ru/u/f9LHodD0cOIHAQgujG9kWdA-_YmAaPy4Vm1n7PnkDYINg5n41G4y7k56-UI" target="_blank"><span class="lbl">Макс</span> @sultanov</a>
-
         </div>
       </div>
 
@@ -547,73 +552,104 @@
   <a href="https://instagram.com/sultanov_bankrotstvo" target="_blank">@sultanov_bankrotstvo</a>
   <p class="disclaimer">Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</p>
 </footer>
+
 <a href="#contact" class="floating-cta">Оставить заявку</a>
-
 <button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Наверх">↑</button>
+
 <script>
-  const WORKER_URL = "https://urist.sultanovsy.workers.dev";
+const WORKER_URL = "https://urist.sultanovsy.workers.dev";
 
-  const form = document.getElementById("contactForm");
-  const statusEl = document.getElementById("formStatus");
-  const btn = document.getElementById("submitBtn");
+const form = document.getElementById("contactForm");
+const statusEl = document.getElementById("formStatus");
+const btn = document.getElementById("submitBtn");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "";
-    statusEl.className = "";
-    btn.disabled = true;
-    btn.textContent = "Отправка...";
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  statusEl.textContent = "";
+  statusEl.className = "";
+  btn.disabled = true;
+  btn.textContent = "Отправка...";
 
-    const data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      message: form.message.value.trim(),
-    };
+  const data = {
+    name: form.name.value.trim(),
+    phone: form.phone.value.trim(),
+    message: form.message.value.trim(),
+  };
 
-    try {
-      const res = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-      if (!res.ok) throw new Error("Request failed");
+    if (!res.ok) throw new Error("Request failed");
 
-      statusEl.textContent = "Заявка отправлена! Свяжусь с вами в ближайшее время.";
-      statusEl.className = "ok";
-      form.reset();
-    } catch (err) {
-      statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Inst.";
-      statusEl.className = "err";
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Отправить заявку";
-    }
+    statusEl.textContent = "Заявка отправлена! Свяжусь с вами в ближайшее время.";
+    statusEl.className = "ok";
+    form.reset();
+  } catch (err) {
+    statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Inst.";
+    statusEl.className = "err";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Отправить заявку";
+  }
+});
+
+document.querySelectorAll(".carousel").forEach((carousel) => {
+  const track = carousel.querySelector(".carousel-track");
+  const prevBtn = carousel.querySelector(".prev");
+  const nextBtn = carousel.querySelector(".next");
+
+  function step() {
+    const card = track.querySelector(":scope > *");
+    if (!card) return 300;
+    const style = getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || 16);
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateButtons() {
+    const maxScroll = track.scrollWidth - track.clientWidth - 2;
+    prevBtn.disabled = track.scrollLeft <= 2;
+    nextBtn.disabled = track.scrollLeft >= maxScroll;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    track.scrollBy({ left: -step(), behavior: "smooth" });
   });
-
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) {
-      scrollTopBtn.classList.add("visible");
-    } else {
-      scrollTopBtn.classList.remove("visible");
-    }
+  nextBtn.addEventListener("click", () => {
+    track.scrollBy({ left: step(), behavior: "smooth" });
   });
-  scrollTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  track.addEventListener("scroll", updateButtons, { passive: true });
+  window.addEventListener("resize", updateButtons);
+  updateButtons();
+});
 
-  const floatingCta = document.querySelector(".floating-cta");
-  const contactSection = document.getElementById("contact");
-  const ctaObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        floatingCta.classList.toggle("hidden", entry.isIntersecting);
-      });
-    },
-    { threshold: 0.15 }
-  );
-  ctaObserver.observe(contactSection);
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add("visible");
+  } else {
+    scrollTopBtn.classList.remove("visible");
+  }
+});
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+const floatingCta = document.querySelector(".floating-cta");
+const contactSection = document.getElementById("contact");
+const ctaObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      floatingCta.classList.toggle("hidden", entry.isIntersecting);
+    });
+  },
+  { threshold: 0.15 }
+);
+ctaObserver.observe(contactSection);
 </script>
 
 </body>
