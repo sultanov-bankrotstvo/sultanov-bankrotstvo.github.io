@@ -3,108 +3,501 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Заявка на консультацию</title>
+<title>Банкротство физических лиц — Султанов и Банкроты</title>
 <style>
-  * { box-sizing: border-box; }
+  :root {
+    --bg: #f7f4ee;
+    --bg-2: #efe9db;
+    --panel: #ffffff;
+    --panel-2: #f2ede2;
+    --brass: #a97c33;
+    --brass-dim: #c79a4b;
+    --brass-soft: rgba(169,124,51,0.10);
+    --burgundy: #9c3b3b;
+    --burgundy-dim: #7a2e2e;
+    --ink: #2a251f;
+    --ink-dim: #6b6255;
+    --ink-faint: #9b9080;
+    --border: #e2d9c5;
+    --radius: 4px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
+    background: var(--bg);
+    color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background: #0f1115;
-    color: #e8e8e8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
+    line-height: 1.6;
   }
-  .card {
-    background: #1a1d24;
-    border: 1px solid #2a2e38;
-    border-radius: 14px;
-    padding: 32px;
-    max-width: 420px;
-    width: 100%;
+  .mono { font-family: "SF Mono", "IBM Plex Mono", Menlo, monospace; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247,244,238,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
   }
-  h1 {
-    font-size: 20px;
-    margin: 0 0 8px;
+  .nav-inner {
+    max-width: 900px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
   }
-  p.sub {
-    color: #9aa0ac;
-    font-size: 14px;
-    margin: 0 0 24px;
+  .nav-brand { font-family: Georgia, serif; font-size: 15px; color: var(--ink); }
+  .nav-brand span { color: var(--brass); }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    font-size: 13px; color: var(--ink-dim); text-decoration: none;
+    padding: 8px 12px; border-radius: var(--radius);
   }
-  label {
-    display: block;
-    font-size: 13px;
-    color: #9aa0ac;
-    margin-bottom: 6px;
-    margin-top: 16px;
+  .nav-links a:hover { color: var(--ink); background: var(--panel-2); }
+  .nav-cta {
+    font-size: 13px; color: #fff !important; background: var(--burgundy);
+    padding: 8px 16px !important; font-weight: 600;
   }
+  .nav-cta:hover { background: var(--burgundy-dim) !important; opacity: 1; }
+  @media (max-width: 680px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  .hero { padding: 64px 0 56px; }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 40px; align-items: center; }
+  .hero-photo {
+    border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+    box-shadow: 0 18px 40px -20px rgba(42,37,31,0.25);
+  }
+  .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photo { max-width: 280px; margin: 0 auto; order: -1; }
+  }
+
+  .case-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
+    border: 1px solid var(--brass-dim); padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 28px; background: var(--brass-soft);
+  }
+  .case-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+  .hero h1 {
+    font-family: Georgia, "PT Serif", serif; font-size: 36px; line-height: 1.22;
+    font-weight: 400; margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: normal; color: var(--brass); }
+  .hero p.lead { font-size: 17px; color: var(--ink-dim); max-width: 480px; margin-bottom: 32px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px;
+    border-radius: var(--radius); font-size: 14px; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--burgundy); color: #fff; }
+  .btn-primary:hover { background: var(--burgundy-dim); }
+  .btn-ghost { border-color: var(--border); color: var(--ink); background: var(--panel); }
+  .btn-ghost:hover { border-color: var(--brass-dim); }
+
+  .stat-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border); padding-top: 24px; gap: 24px;
+  }
+  .stat-num { font-family: Georgia, serif; font-size: 26px; color: var(--brass); }
+  .stat-label { font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 27px; }
+    .stat-row { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .eyebrow {
+    font-family: "SF Mono", monospace; font-size: 12px; color: var(--brass);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
+  }
+  h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bottom: 8px; }
+  .section-sub { color: var(--ink-dim); font-size: 15px; max-width: 540px; margin-bottom: 36px; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .about-photo {
+    border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+    position: sticky; top: 80px;
+    box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
+  }
+  .about-photo img { display: block; width: 100%; height: auto; }
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo { position: static; max-width: 340px; margin: 0 auto 28px; }
+  }
+
+  .bio-block { margin-bottom: 22px; }
+  .bio-block h3 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--brass); margin-bottom: 8px; font-weight: 600;
+  }
+  .bio-block p { color: var(--ink-dim); font-size: 15px; margin-bottom: 8px; }
+  .bio-quote {
+    border-left: 2px solid var(--brass-dim); padding: 4px 0 4px 16px;
+    font-family: Georgia, serif; font-style: italic; color: var(--ink);
+    margin: 14px 0; font-size: 15px;
+  }
+
+  .service-list { border-top: 1px solid var(--border); }
+  .service-row {
+    display: grid; grid-template-columns: 60px 1fr; gap: 20px;
+    padding: 22px 0; border-bottom: 1px solid var(--border);
+  }
+  .service-num { font-family: "SF Mono", monospace; font-size: 13px; color: var(--ink-faint); padding-top: 2px; }
+  .service-row h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .service-row p { color: var(--ink-dim); font-size: 14px; max-width: 500px; }
+  .service-row .callout {
+    display: inline-block; margin-top: 8px; font-size: 13px; color: var(--brass);
+    background: var(--brass-soft); padding: 6px 12px; border-radius: var(--radius);
+  }
+  .advantages-photo {
+    margin-top: 32px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+    box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
+  }
+  .advantages-photo img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
+
+  .case-note {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px 18px; font-size: 13px; color: var(--brass); margin-bottom: 28px;
+  }
+  .case-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; box-shadow: 0 10px 26px -20px rgba(42,37,31,0.2);
+  }
+  .case-card h3 { font-size: 16px; margin-bottom: 10px; font-weight: 600; }
+  .case-card p { color: var(--ink-dim); font-size: 15px; margin-bottom: 10px; }
+  .case-card .highlight {
+    background: var(--brass-soft); border-left: 2px solid var(--brass);
+    padding: 10px 14px; color: var(--ink); font-size: 14px; margin: 12px 0;
+  }
+  .case-card .result { color: var(--brass); font-weight: 600; font-size: 15px; margin-top: 14px; }
+
+  .rating-bar {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+    padding: 16px 20px; background: var(--panel-2); border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .rating-num { font-family: Georgia, serif; font-size: 28px; color: var(--brass); }
+  .rating-sub { font-size: 13px; color: var(--ink-dim); }
+
+  .review-grid { display: grid; gap: 16px; }
+  .review-card {
+    background: var(--panel); border-left: 2px solid var(--brass-dim);
+    padding: 18px 22px; border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: 0 8px 20px -18px rgba(42,37,31,0.25);
+  }
+  .review-head { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: baseline; }
+  .review-name { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .review-stars { font-size: 12px; color: var(--brass); }
+  .review-text { font-family: Georgia, serif; font-size: 15px; color: var(--ink-dim); }
+
+  .proof-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px;
+  }
+  .proof-grid figure { margin: 0; }
+  .proof-grid .ph {
+    border-radius: 6px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 3/4;
+    box-shadow: 0 10px 24px -18px rgba(42,37,31,0.25);
+  }
+  .proof-grid img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .proof-grid figcaption { font-size: 12px; color: var(--ink-faint); margin-top: 6px; text-align: center; }
+  @media (max-width: 680px) { .proof-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  #contact { border-bottom: none; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .contact-info p { color: var(--ink-dim); font-size: 15px; margin-bottom: 20px; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; }
+  .contact-links a { color: var(--ink); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .contact-links a:hover { color: var(--brass); }
+  .contact-links .lbl { color: var(--ink-faint); width: 90px; flex-shrink: 0; font-size: 12px; }
+
+  form label { display: block; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; margin-top: 16px; }
+  form label:first-child { margin-top: 0; }
   input, textarea {
-    width: 100%;
-    background: #12141a;
-    border: 1px solid #2a2e38;
-    border-radius: 8px;
-    padding: 12px;
-    color: #fff;
-    font-size: 15px;
-    font-family: inherit;
+    width: 100%; background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px; color: var(--ink); font-size: 14px; font-family: inherit;
   }
-  textarea { min-height: 90px; resize: vertical; }
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: #4f7cff;
+  textarea { min-height: 80px; resize: vertical; }
+  input:focus, textarea:focus { outline: none; border-color: var(--brass-dim); }
+  #contactForm button {
+    width: 100%; margin-top: 20px; padding: 14px; background: var(--burgundy);
+    color: #fff; border: none; border-radius: var(--radius); font-size: 14px;
+    font-weight: 600; cursor: pointer;
   }
-  button {
-    width: 100%;
-    margin-top: 24px;
-    padding: 14px;
-    background: #4f7cff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
+  #contactForm button:disabled { opacity: 0.6; cursor: not-allowed; }
+  #contactForm button:hover:not(:disabled) { background: var(--burgundy-dim); }
+  #formStatus { margin-top: 12px; font-size: 13px; text-align: center; }
+  #formStatus.ok { color: #3f7d51; }
+  #formStatus.err { color: #b0473a; }
+  @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  footer { padding: 32px 0 40px; text-align: center; font-size: 12px; color: var(--ink-faint); }
+  footer a { color: var(--brass); text-decoration: none; }
+  .disclaimer {
+    max-width: 640px; margin: 18px auto 0; font-size: 11px; line-height: 1.5;
+    color: var(--ink-faint); padding: 0 24px;
   }
-  button:disabled { opacity: 0.6; cursor: not-allowed; }
-  #status {
-    margin-top: 14px;
-    font-size: 14px;
-    text-align: center;
-  }
-  #status.ok { color: #4fd67c; }
-  #status.err { color: #ff6b6b; }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>Оставить заявку</h1>
-  <p class="sub">Заполните форму — я свяжусь с вами в ближайшее время.</p>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Султанов <span>и Банкроты</span></div>
+    <div class="nav-links">
+      <a href="#about">Обо мне</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#case">Кейс</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contact" class="nav-cta">Заявка</a>
+    </div>
+  </div>
+</nav>
 
-  <form id="leadForm">
-    <label for="name">Имя</label>
-    <input type="text" id="name" name="name" required>
+<div class="wrap">
 
-    <label for="phone">Телефон</label>
-    <input type="tel" id="phone" name="phone" required placeholder="+7 900 000-00-00">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="case-tag">Первая консультация бесплатна</div>
+        <h1>Банкротство — законный выход из долгов, а не крах. <em>Работаю под ключ, на фиксированных условиях.</em></h1>
+        <p class="lead">Списываю долги физическим лицам по всей России дистанционно. Опишите вашу ситуацию — оценю перспективы бесплатно.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+          <a href="#advantages" class="btn btn-ghost">Как это работает</a>
+        </div>
+        <div class="stat-row">
+          <div><div class="stat-num">10+</div><div class="stat-label">лет в юриспруденции</div></div>
+          <div><div class="stat-num">5,0</div><div class="stat-label">рейтинг · 137 отзывов на 2ГИС</div></div>
+          <div><div class="stat-num">РФ</div><div class="stat-label">работаю дистанционно в любом регионе</div></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="assets/portrait-1.jpg" alt="Сергей Султанов">
+      </div>
+    </div>
+  </section>
 
-    <label for="message">Кратко о ситуации</label>
-    <textarea id="message" name="message" placeholder="Например: долги перед банками, хочу узнать про списание"></textarea>
+  <section id="about">
+    <div class="eyebrow">Досье № 001</div>
+    <h2>Обо мне</h2>
 
-    <button type="submit" id="submitBtn">Отправить заявку</button>
-    <div id="status"></div>
-  </form>
+    <div class="about-grid">
+      <div>
+        <div class="bio-block">
+          <h3>С чего всё началось</h3>
+          <p>2014 год. Мой путь в профессии начался с суда — это была практика без теории: реальные дела, реальные люди и самые разные категории споров.</p>
+          <div class="bio-quote">Хороший юрист — не тот, кто просто знает законы, а тот, кто умеет применять их для решения конкретной проблемы.</div>
+        </div>
+
+        <div class="bio-block">
+          <h3>От юриста — к руководителю</h3>
+          <p>После работы в суде перешёл в частные компании: сначала юристом, затем стал руководителем юридических отделов. Неоднократно приходилось выстраивать работу отдела практически с нуля — формировать и обучать команду, создавать стандарты работы, разбирать сложные и нестандартные дела.</p>
+        </div>
+
+        <div class="bio-block">
+          <h3>Арбитражное управление</h3>
+          <p>Следующим важным этапом стала работа с арбитражными управляющими — пригодился опыт работы с информацией и процессами. Банкротство — это документы, сроки, участники, суды и параллельные задачи. Этот опыт стал важной частью моей собственной практики.</p>
+        </div>
+
+        <div class="bio-block">
+          <h3>Собственная практика</h3>
+          <p>Уже больше 5 лет работаю самостоятельно. Основное направление — банкротство физических лиц. В юриспруденции не существует универсальных решений: каждую ситуацию сначала изучаю, и только потом выбираю стратегию.</p>
+        </div>
+
+        <div class="bio-block">
+          <h3>Мой подход</h3>
+          <p>Не обещаю клиенту того, чего нельзя осуществить. Сначала изучаю документы, оцениваю риски и перспективы — и только потом говорю, что действительно можно сделать. А если законного решения нет — честно скажу об этом.</p>
+        </div>
+      </div>
+
+      <div class="about-photo">
+        <img src="assets/office-2.jpg" alt="Сергей Султанов за работой в кабинете">
+      </div>
+    </div>
+  </section>
+
+  <section id="advantages">
+    <div class="eyebrow">Досье № 002</div>
+    <h2>Преимущества работы со мной</h2>
+    <p class="section-sub">Со мной вы получаете работу под ключ до полного списания долгов, фиксированную стоимость и поддержку на связи каждый день.</p>
+
+    <div class="service-list">
+      <div class="service-row">
+        <div class="service-num mono">01</div>
+        <div>
+          <h3>Не затягивайте с решением</h3>
+          <p>Если у вас уже есть просрочки или скоро появятся — не стоит затягивать. Это поможет избежать угроз коллекторов, звонков из банков, удержания зарплаты приставами и постоянного стресса из-за долгов.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="service-num mono">02</div>
+        <div>
+          <h3>Защита законом</h3>
+          <p>Банкротство — законная процедура. Как только кредиторы узнают о начале процедуры, звонки резко сокращаются.</p>
+          <div class="callout">С момента начала процедуры банки, МФО и коллекторы не имеют права звонить — по закону № 127-ФЗ и № 230-ФЗ.</div>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="service-num mono">03</div>
+        <div>
+          <h3>Работаю до результата</h3>
+          <p>Работаю под ключ — до полного списания долгов. Не берусь за дела, где нет уверенности в результате: если соглашаюсь вести процедуру, значит вижу законный путь довести её до конца.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="service-num mono">04</div>
+        <div>
+          <h3>На связи 7 дней в неделю</h3>
+          <p>Пишите в чат и получайте оперативный ответ в любой день недели. На каждом этапе — понятная памятка о том, что происходит сейчас и что будет дальше.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="service-num mono">05</div>
+        <div>
+          <h3>Удобная оплата</h3>
+          <p>Стоимость услуг фиксированная — без доплат «по ходу дела». Возможна рассрочка до 18 месяцев, платёж от 7 500 до 10 000 ₽ в месяц.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <div class="service-num mono">06</div>
+        <div>
+          <h3>Бонус за рекомендацию</h3>
+          <p>За каждого клиента, который пришёл по вашей рекомендации — вознаграждение 10 000 ₽.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="advantages-photo">
+      <img src="assets/meeting-1.jpg" alt="Консультация с клиентом">
+    </div>
+  </section>
+
+  <section id="case">
+    <div class="eyebrow">Досье № 003</div>
+    <h2>Кейс из практики</h2>
+    <p class="section-sub">Большинство моих клиентов — женщины. Меня всегда удивляло, как часто именно женщина берёт на себя финансовую ответственность за всю семью — иногда даже за мужа.</p>
+
+    <div class="case-card">
+      <h3>Ситуация</h3>
+      <p>Ко мне обратилась женщина, которая платила свои кредиты и кредиты парализованного мужа. Денег едва хватало на лекарства и лечение — на кредиты их уже просто не оставалось. Она решилась на банкротство.</p>
+
+      <h3 style="margin-top:18px;">Что было важно</h3>
+      <p>В её деле было важно не просто списать долги, а сделать так, чтобы после начала процедуры у неё оставались деньги на жизнь.</p>
+      <div class="highlight">Добился, чтобы при расчёте суммы, которая должна оставаться у неё, учитывался прожиточный минимум и на мужа — иначе денег на жизнь и лечение просто не хватало бы.</div>
+
+      <p class="result">Результат: все долги списаны. Вместе с ними ушла огромная финансовая нагрузка — появились деньги на то, что действительно важно: жизнь, лекарства и заботу о семье.</p>
+    </div>
+
+    <div class="proof-grid">
+      <figure>
+        <div class="ph"><img src="assets/client-1.jpg" alt="С клиентом после успешного завершения процедуры"></div>
+        <figcaption>Долги списаны</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><img src="assets/client-2.jpg" alt="С клиентом после успешного завершения процедуры"></div>
+        <figcaption>Долги списаны</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><img src="assets/client-3.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
+        <figcaption>Долги списаны</figcaption>
+      </figure>
+      <figure>
+        <div class="ph"><img src="assets/client-4.jpg" alt="С клиенткой после успешного завершения процедуры"></div>
+        <figcaption>Долги списаны</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="eyebrow">Досье № 004</div>
+    <h2>Отзывы клиентов</h2>
+    <p class="section-sub">Не хочу просто рассказывать, какой я юрист — гораздо честнее показать, что говорят люди, которые уже обращались ко мне. Без красивых обещаний, просто опыт людей и результат работы.</p>
+
+    <div class="rating-bar">
+      <div class="rating-num">5,0</div>
+      <div class="rating-sub">137 отзывов на 2ГИС</div>
+    </div>
+
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Константин Б.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Решение далось нелегко — был страх, что не спишут или заставят платить. Но мне всё объяснили: Сергей разобрал все долги, кто когда платил. Сказал, что в моём случае всё получится — так и вышло. Спасибо большое.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Григорий С.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Доволен всем! Приятной неожиданностью стало то, что процедура прошла быстрее, чем планировалось — банки решили не подключаться. В итоге долги списали всего за 5 месяцев. Спасибо.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Егор Ж.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Был на нескольких консультациях — везде предлагали свои услуги в кредит или мутные схемы. У Сергея всё прозрачно: разрешил платить частями без кредитов и честно рассказал, чем грозили бы другие схемы.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Борис И.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Смело рекомендую Сергея — профи на 100%. Списал долг, хотя я из другого региона: всё дистанционно, без моего реального участия. Супер.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Анна Щ.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Мне списали долги — это моё лучшее решение за последние годы. Было страшно, не сразу решилась, но всё прошло успешно. Теперь буду обходить кредиты стороной. Спасибо большое.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Илья Х.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Крутой юрист. Помог списать долг и договориться с банком о спасении ипотеки. Рекомендую всем, кто в сложной финансовой ситуации: идите именно к Сергею, он всегда поможет.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Дмитрий М.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Мама закредитовалась втайне, деньгами помочь не смогли. Долго искали юриста — боялись нарваться на горе-специалистов. Повезло найти Сергея: сразу доверились, он всё прозрачно объяснил. Теперь у мамы долги списаны — большое спасибо.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head"><span class="review-name">Дмитрий Д.</span><span class="review-stars">★★★★★</span></div>
+        <p class="review-text">Как и обещал, все суды прошли за 6 месяцев. Никуда ходить не пришлось — было страшно, но Сергей сразу сказал, что всё делает сам. Банки уже убрали долги из приложений. Спасибо большое.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="eyebrow">Досье № 005</div>
+    <h2>Оставить заявку</h2>
+    <p class="section-sub">Опишите вашу ситуацию — оценю перспективы бесплатно.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Работаю дистанционно по всей России. Первая консультация бесплатна.</p>
+        <div class="contact-links">
+          <a href="tel:+79050036625"><span class="lbl">Телефон</span> +7 905 003-66-25</a>
+          <a href="https://instagram.com/sultanov_bankrotstvo" target="_blank"><span class="lbl">Instagram</span> @sultanov_bankrotstvo</a>
+        </div>
+      </div>
+
+      <form id="contactForm">
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" required placeholder="+7 900 000-00-00">
+
+        <label for="message">Кратко о ситуации</label>
+        <textarea id="message" name="message" placeholder="Например: долги перед банками, хочу узнать про списание"></textarea>
+
+        <button type="submit" id="submitBtn">Отправить заявку</button>
+        <div id="formStatus"></div>
+      </form>
+    </div>
+  </section>
+
 </div>
 
+<footer>
+  © 2026 Султанов и Банкроты · Банкротство физических лиц ·
+  <a href="https://instagram.com/sultanov_bankrotstvo" target="_blank">@sultanov_bankrotstvo</a>
+  <p class="disclaimer">Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</p>
+</footer>
+
 <script>
-  // ⚠️ Замените на адрес вашего Cloudflare Worker после деплоя
   const WORKER_URL = "https://urist.sultanovsy.workers.dev";
 
-  const form = document.getElementById("leadForm");
-  const statusEl = document.getElementById("status");
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("formStatus");
   const btn = document.getElementById("submitBtn");
 
   form.addEventListener("submit", async (e) => {
@@ -129,11 +522,11 @@
 
       if (!res.ok) throw new Error("Request failed");
 
-      statusEl.textContent = "Заявка отправлена! Мы скоро свяжемся с вами.";
+      statusEl.textContent = "Заявка отправлена! Свяжусь с вами в ближайшее время.";
       statusEl.className = "ok";
       form.reset();
     } catch (err) {
-      statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую.";
+      statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Instagram.";
       statusEl.className = "err";
     } finally {
       btn.disabled = false;
