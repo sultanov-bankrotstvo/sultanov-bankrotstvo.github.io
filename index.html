@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заявка на консультацию</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #0f1115;
+    color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  .card {
+    background: #1a1d24;
+    border: 1px solid #2a2e38;
+    border-radius: 14px;
+    padding: 32px;
+    max-width: 420px;
+    width: 100%;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+  p.sub {
+    color: #9aa0ac;
+    font-size: 14px;
+    margin: 0 0 24px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: #9aa0ac;
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
+  input, textarea {
+    width: 100%;
+    background: #12141a;
+    border: 1px solid #2a2e38;
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #4f7cff;
+  }
+  button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: #4f7cff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  #status {
+    margin-top: 14px;
+    font-size: 14px;
+    text-align: center;
+  }
+  #status.ok { color: #4fd67c; }
+  #status.err { color: #ff6b6b; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Оставить заявку</h1>
+  <p class="sub">Заполните форму — я свяжусь с вами в ближайшее время.</p>
+
+  <form id="leadForm">
+    <label for="name">Имя</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="phone">Телефон</label>
+    <input type="tel" id="phone" name="phone" required placeholder="+7 900 000-00-00">
+
+    <label for="message">Кратко о ситуации</label>
+    <textarea id="message" name="message" placeholder="Например: долги перед банками, хочу узнать про списание"></textarea>
+
+    <button type="submit" id="submitBtn">Отправить заявку</button>
+    <div id="status"></div>
+  </form>
+</div>
+
+<script>
+  // ⚠️ Замените на адрес вашего Cloudflare Worker после деплоя
+  const WORKER_URL = "https://your-worker-name.your-subdomain.workers.dev";
+
+  const form = document.getElementById("leadForm");
+  const statusEl = document.getElementById("status");
+  const btn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+    statusEl.className = "";
+    btn.disabled = true;
+    btn.textContent = "Отправка...";
+
+    const data = {
+      name: form.name.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim(),
+    };
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      statusEl.textContent = "Заявка отправлена! Мы скоро свяжемся с вами.";
+      statusEl.className = "ok";
+      form.reset();
+    } catch (err) {
+      statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую.";
+      statusEl.className = "err";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Отправить заявку";
+    }
+  });
+</script>
+
+</body>
+</html>
