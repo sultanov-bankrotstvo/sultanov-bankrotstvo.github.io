@@ -162,7 +162,7 @@ h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bott
   box-shadow: 0 18px 40px -22px rgba(42,37,31,0.22);
   background: var(--panel-2);
 }
-.img-carousel .carousel-slide-imgs { position: relative; width: 100%; aspect-ratio: 3/4; }
+.img-carousel .carousel-slide-imgs { position: relative; width: 100%; height: 0; padding-top: 133.33%; }
 .img-carousel .carousel-slide-imgs img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
   opacity: 0; transition: opacity 0.7s ease;
@@ -221,7 +221,7 @@ h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bott
   background: var(--brass-soft); padding: 6px 12px; border-radius: var(--radius);
 }
 .advantages-photo.img-carousel { margin-top: 32px; }
-.advantages-photo.img-carousel .carousel-slide-imgs { aspect-ratio: 4/3; }
+.advantages-photo.img-carousel .carousel-slide-imgs { padding-top: 75%; }
 .advantages-photo.img-carousel {
   max-width: 550px;
   margin-left: auto;
@@ -283,10 +283,11 @@ h2 { font-family: Georgia, serif; font-weight: 400; font-size: 26px; margin-bott
 .proof-grid.carousel-track { margin-top: 32px; }
 .proof-grid figure { margin: 0; flex: 0 0 200px; scroll-snap-align: start; }
 .proof-grid .ph {
-  border-radius: 6px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 3/4;
+  border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  position: relative; width: 100%; height: 0; padding-top: 133.33%;
   box-shadow: 0 10px 24px -18px rgba(42,37,31,0.25);
 }
-.proof-grid img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.proof-grid img { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .proof-grid figcaption { font-size: 12px; color: var(--ink-faint); margin-top: 6px; text-align: center; }
 @media (max-width: 600px) {
   .review-card { flex-basis: 82vw; }
