@@ -116,6 +116,19 @@ nav {
 }
 .hero h1 em { font-style: normal; color: var(--brass); }
 .hero p.lead { font-size: 17px; color: var(--ink-dim); max-width: 480px; margin-bottom: 32px; }
+.lead-magnet {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--brass-soft); border: 1px solid var(--brass-dim);
+  border-radius: 6px; padding: 16px 18px; margin: 22px 0;
+  max-width: 480px;
+}
+.lead-magnet-icon {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--brass); color: #fff; display: flex; align-items: center;
+  justify-content: center; font-size: 16px;
+}
+.lead-magnet-text { font-size: 14px; color: var(--ink); line-height: 1.45; }
+.lead-magnet-text strong { color: var(--brass); }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px;
@@ -304,6 +317,39 @@ input:focus, textarea:focus { outline: none; border-color: var(--brass-dim); }
 #formStatus { margin-top: 12px; font-size: 13px; text-align: center; }
 #formStatus.ok { color: #3f7d51; }
 #formStatus.err { color: #b0473a; }
+
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(42,37,31,0.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+.modal-box {
+  background: var(--panel); border-radius: 8px; padding: 32px 28px;
+  max-width: 420px; width: 100%; position: relative; text-align: center;
+  box-shadow: 0 30px 60px -20px rgba(42,37,31,0.4);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.25s ease;
+}
+.modal-overlay.visible .modal-box { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 12px; right: 12px; width: 30px; height: 30px;
+  border-radius: 50%; border: 1px solid var(--border); background: var(--panel);
+  color: var(--ink-dim); font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover { border-color: var(--brass-dim); color: var(--brass); }
+.modal-icon {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--brass-soft);
+  color: var(--brass); font-size: 26px; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.modal-box h3 { font-family: Georgia, serif; font-size: 21px; font-weight: 400; margin-bottom: 10px; }
+.modal-box p { color: var(--ink-dim); font-size: 14px; margin-bottom: 14px; line-height: 1.5; }
+.modal-link { display: inline-flex; margin-top: 6px; }
 @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
 .compare-table { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 8px; }
 .compare-row {
@@ -533,6 +579,10 @@ footer a { color: var(--brass); text-decoration: none; }
       <div>
         <div class="case-tag">Консультация бесплатная</div>
         <h1>Банкротство — законный выход из долгов, а не приговор. <em>Работаю под ключ, на фиксированных условиях.</em></h1>
+        <div class="lead-magnet">
+          <div class="lead-magnet-icon">🔔</div>
+          <div class="lead-magnet-text"><strong>Оставьте заявку на бесплатную консультацию</strong> и получите инструкцию по запрету звонков коллекторов</div>
+        </div>
         <p class="lead">Занимаюсь процедурой банкротсва граждан по всей России. Опишите вашу ситуацию — оценю перспективы бесплатно.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Оставить заявку</a>
@@ -925,6 +975,17 @@ footer a { color: var(--brass); text-decoration: none; }
   <button type="button" id="cookieAccept">Понятно</button>
 </div>
 
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+    <div class="modal-icon">✓</div>
+    <h3>Заявка принята!</h3>
+    <p>Я скоро вам позвоню, чтобы обсудить вашу ситуацию.</p>
+    <p>Как и обещал, выдаю инструкцию по блокировке звонков коллекторов:</p>
+    <a href="https://disk.yandex.ru/d/2G7jZelrkl-gBQ" target="_blank" class="btn btn-primary modal-link">Скачать инструкцию</a>
+  </div>
+</div>
+
 <script>
 const WORKER_URL = "https://urist.sultanovsy.workers.dev";
 
@@ -962,13 +1023,31 @@ form.addEventListener("submit", async (e) => {
     statusEl.textContent = "Заявка отправлена! Свяжусь с вами в ближайшее время.";
     statusEl.className = "ok";
     form.reset();
+    openSuccessModal();
   } catch (err) {
-    statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Inst.";
+    statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в мессенджер.";
     statusEl.className = "err";
   } finally {
     btn.disabled = false;
     btn.textContent = "Отправить заявку";
   }
+});
+
+const successModal = document.getElementById("successModal");
+const modalClose = document.getElementById("modalClose");
+
+function openSuccessModal() {
+  successModal.classList.add("visible");
+}
+function closeSuccessModal() {
+  successModal.classList.remove("visible");
+}
+modalClose.addEventListener("click", closeSuccessModal);
+successModal.addEventListener("click", (e) => {
+  if (e.target === successModal) closeSuccessModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeSuccessModal();
 });
 
 document.querySelectorAll(".carousel").forEach((carousel) => {
