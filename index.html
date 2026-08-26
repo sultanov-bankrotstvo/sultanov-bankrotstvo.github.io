@@ -933,6 +933,9 @@ footer a { color: var(--brass); text-decoration: none; }
           <span>Ознакомлен(а) с <a href="https://disk.yandex.ru/i/iNhckR1e7_7kbw" target="_blank">политикой конфиденциальности</a> и даю <a href="https://disk.yandex.ru/i/hoEACOSqxKxnBQ" target="_blank">согласие на обработку персональных данных</a></span>
         </label>
 
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEdIxbKIT9_JgCWp" data-callback="onCaptchaSuccess" style="margin-top:16px;"></div>
+        <input type="hidden" id="captchaToken" name="captchaToken">
+
         <button type="submit" id="submitBtn">Отправить заявку</button>
         <p class="answer-note">Обычно отвечаю в течение нескольких часов.</p>
         <div id="formStatus"></div>
@@ -991,6 +994,11 @@ footer a { color: var(--brass); text-decoration: none; }
 <script>
 const WORKER_URL = "https://urist.sultanovsy.workers.dev";
 
+function onCaptchaSuccess(token) {
+  document.getElementById("captchaToken").value = token;
+}
+window.onCaptchaSuccess = onCaptchaSuccess;
+
 const form = document.getElementById("contactForm");
 const statusEl = document.getElementById("formStatus");
 const btn = document.getElementById("submitBtn");
@@ -999,6 +1007,14 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   if (form.website.value.trim() !== "") {
+    return;
+  }
+
+  const captchaToken = form.captchaToken.value;
+
+  if (!captchaToken) {
+    statusEl.textContent = "Пожалуйста, подтвердите, что вы не робот.";
+    statusEl.className = "err";
     return;
   }
 
@@ -1011,6 +1027,7 @@ form.addEventListener("submit", async (e) => {
     name: form.name.value.trim(),
     phone: form.phone.value.trim(),
     message: form.message.value.trim(),
+    captchaToken: captchaToken,
   };
 
   try {
@@ -1025,6 +1042,7 @@ form.addEventListener("submit", async (e) => {
     statusEl.textContent = "Заявка отправлена! Свяжусь с вами в ближайшее время.";
     statusEl.className = "ok";
     form.reset();
+    if (window.turnstile) window.turnstile.reset();
     openSuccessModal();
   } catch (err) {
     statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или напишите в мессенджер.";
@@ -1230,5 +1248,6 @@ const ctaObserver = new IntersectionObserver(
 ctaObserver.observe(contactSection);
 </script>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </body>
 </html>
