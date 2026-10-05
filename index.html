@@ -602,7 +602,7 @@ footer a { color: var(--brass); text-decoration: none; }
           <div class="lead-magnet-icon">🔔</div>
           <div class="lead-magnet-text"><strong>Оставьте заявку на бесплатную консультацию</strong> и получите инструкцию по запрету звонков коллекторов</div>
         </div>
-        <p class="lead">Занимаюсь процедурой банкротсва граждан по всей России. Опишите вашу ситуацию — проконсультирую бесплатно.</p>
+        <p class="lead">Занимаюсь процедурой банкротсва граждан по всей России. Оставьте номер телефона — перезвоню и проконсультирую бесплатно.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Оставить заявку</a>
           <a href="#advantages" class="btn btn-ghost">Как это работает</a>
@@ -920,7 +920,7 @@ footer a { color: var(--brass); text-decoration: none; }
 
   <section id="contact">
     <h2>Оставить заявку</h2>
-    <p class="section-sub">Опишите вашу ситуацию — оценю перспективы бесплатно.</p>
+    <p class="section-sub">Оставьте номер телефона — перезвоню и бесплатно оценю перспективы.</p>
 
     <div class="contact-grid">
       <div class="contact-info">
@@ -946,20 +946,8 @@ footer a { color: var(--brass); text-decoration: none; }
           >
         </div>
 
-        <label for="name">Имя</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          autocomplete="name"
-          autocapitalize="words"
-          autocorrect="off"
-          spellcheck="false"
-          inputmode="text"
-          enterkeyhint="next"
-          placeholder="Сергей Султанов"
-        >
+        <input type="hidden" id="name" name="name" value="Сайт заявка">
+        <input type="hidden" id="message" name="message" value="Сайт заявка">
 
         <label for="phone">Телефон</label>
         <input
@@ -969,21 +957,9 @@ footer a { color: var(--brass); text-decoration: none; }
           required
           autocomplete="tel"
           inputmode="tel"
-          enterkeyhint="next"
+          enterkeyhint="send"
           placeholder="+7 900 000-00-00"
         >
-
-        <label for="message">Кратко о ситуации</label>
-        <textarea
-          id="message"
-          name="message"
-          autocomplete="off"
-          autocapitalize="sentences"
-          spellcheck="true"
-          enterkeyhint="send"
-          placeholder="Например: долги перед банками 300 тысяч, хочу узнать про банкротство"
-          rows="5"
-        ></textarea>
 
         <label class="consent-check">
           <input type="checkbox" id="consent" name="consent" required>
@@ -1052,13 +1028,11 @@ const WORKER_URL = "https://urist.sultanovsy.workers.dev";
   const form = document.getElementById("contactForm");
   const btn = document.getElementById("submitBtn");
   const statusEl = document.getElementById("formStatus");
-  const nameInput = document.getElementById("name");
   const phoneInput = document.getElementById("phone");
-  const messageInput = document.getElementById("message");
   const websiteInput = document.getElementById("website");
   const consentInput = document.getElementById("consent");
 
-  if (!form || !btn || !nameInput || !phoneInput || !messageInput) {
+  if (!form || !btn || !phoneInput) {
     console.error("Форма не найдена или отсутствуют необходимые элементы.");
     return;
   }
@@ -1076,19 +1050,8 @@ const WORKER_URL = "https://urist.sultanovsy.workers.dev";
     return value.replace(/\s+/g, " ").trim();
   }
   function validateForm() {
-    const name = normalizeSpaces(nameInput.value);
     const phone = phoneInput.value.trim();
 
-    if (!name) {
-      showStatus("Введите ваше имя.", "err");
-      nameInput.focus();
-      return false;
-    }
-    if (name.length < 2) {
-      showStatus("Имя должно содержать минимум 2 символа.", "err");
-      nameInput.focus();
-      return false;
-    }
     if (!phone) {
       showStatus("Введите номер телефона.", "err");
       phoneInput.focus();
@@ -1122,9 +1085,9 @@ const WORKER_URL = "https://urist.sultanovsy.workers.dev";
     }
 
     const data = {
-      name: normalizeSpaces(nameInput.value),
+      name: "Сайт заявка",
       phone: phoneInput.value.trim(),
-      message: normalizeSpaces(messageInput.value),
+      message: "Сайт заявка",
     };
 
     btn.disabled = true;
@@ -1156,24 +1119,7 @@ const WORKER_URL = "https://urist.sultanovsy.workers.dev";
     }
   });
 
-  nameInput.addEventListener("input", clearStatus);
   phoneInput.addEventListener("input", clearStatus);
-  messageInput.addEventListener("input", clearStatus);
-
-  // Enter в имени → переход к телефону
-  nameInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      phoneInput.focus();
-    }
-  });
-  // Enter в телефоне → переход к сообщению
-  phoneInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      messageInput.focus();
-    }
-  });
 })();
 
 const successModal = document.getElementById("successModal");
